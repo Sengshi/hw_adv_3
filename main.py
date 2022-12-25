@@ -17,6 +17,7 @@ def req_hh(letters):
     vac_list = requests.get('https://spb.hh.ru/search/vacancy?text=python&area=1&area=2', headers=head)
     soup1 = BeautifulSoup(vac_list.text, 'html.parser')
     posts = soup1.find_all('div', class_='serp-item')
+    # основное задание
     for post in posts:
         sleep(0.2)
         vac_full = requests.get(post.find('a')['href'], headers=head)
@@ -43,7 +44,6 @@ def req_hh(letters):
 
     # дополнительное задание
     vac_parsed_dop = []
-    posts = soup1.find_all('div', class_='serp-item')
     for post in posts:
         if post.find('span', attrs={'data-qa': 'vacancy-serp__vacancy-compensation'}):
             wages = post.find('span', attrs={'data-qa': 'vacancy-serp__vacancy-compensation'}).text
